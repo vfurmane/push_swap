@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/25 16:42:45 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/06/25 23:05:46 by vfurmane         ###   ########.fr       */
+/*   Created: 2021/06/25 23:02:31 by vfurmane          #+#    #+#             */
+/*   Updated: 2021/06/25 23:02:38 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "utils.h"
 
-# include <stdint.h>
-# include <stdlib.h>
-# include "utils.h"
+int	ft_atoi(const char *str)
+{
+	int	i;
+	int	nbr;
+	int	neg;
 
-int32_t	*parse_arguments(int argc, char **argv);
-
-#endif
+	i = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		i++;
+	neg = (str[i] == '-') * -2 + 1;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	nbr = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		nbr = nbr * 10 + str[i] - '0';
+		i++;
+	}
+	return (nbr * neg);
+}

@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/25 16:42:45 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/06/25 23:05:46 by vfurmane         ###   ########.fr       */
+/*   Created: 2021/06/25 23:02:44 by vfurmane          #+#    #+#             */
+/*   Updated: 2021/06/25 23:05:10 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include <stdint.h>
-# include <stdlib.h>
-# include "utils.h"
-
-int32_t	*parse_arguments(int argc, char **argv);
+int	ft_atoi(const char *str);
 
 #endif

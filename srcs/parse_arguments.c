@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   parse_arguments.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/25 16:42:45 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/06/25 23:05:46 by vfurmane         ###   ########.fr       */
+/*   Created: 2021/06/25 23:05:31 by vfurmane          #+#    #+#             */
+/*   Updated: 2021/06/25 23:05:38 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "push_swap.h"
 
-# include <stdint.h>
-# include <stdlib.h>
-# include "utils.h"
+int32_t	*parse_arguments(int argc, char **argv)
+{
+	int		i;
+	int32_t	*stack;
 
-int32_t	*parse_arguments(int argc, char **argv);
-
-#endif
+	stack = malloc((argc - 1) * sizeof(*stack));
+	if (stack == NULL)
+		return (NULL);
+	i = 0;
+	while (i < argc - 1)
+	{
+		stack[i] = ft_atoi(argv[i + 1]);
+		i++;
+	}
+	return (stack);
+}

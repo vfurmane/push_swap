@@ -6,12 +6,13 @@
 #    By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/14 13:23:55 by vfurmane          #+#    #+#              #
-#    Updated: 2021/06/25 16:42:39 by vfurmane         ###   ########.fr        #
+#    Updated: 2021/06/25 23:06:06 by vfurmane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= push_swap
-SRCS		= $(addprefix srcs/, main.c)
+SRCS		= $(addprefix srcs/, main.c parse_arguments.c \
+			  $(addprefix utils/, ft_atoi.c))
 OBJS		= $(SRCS:.c=.o)
 INCL		= $(addprefix -I , includes)
 CC			= clang
