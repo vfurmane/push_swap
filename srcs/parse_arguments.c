@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 23:05:31 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/06/29 11:44:31 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/06/29 16:54:21 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,26 @@ static void	set_stack_index(t_stack_elm *stack, t_stack_elm *new_stack, int len)
 	}
 }
 
+static void	keep_in_stack(t_stack_elm *stack, int len)
+{
+	uint16_t	i;
+	int32_t		last_nbr;
+
+	last_nbr = INT_MIN;
+	i = 0;
+	while (i < len)
+	{
+		if (stack[i].value > last_nbr)
+		{
+			stack[i].keep_in_stack = 1;
+			last_nbr = stack[i].value;
+		}
+		else
+			stack[i].keep_in_stack = 0;
+		i++;
+	}
+}
+
 static int	pre_sort_stack(t_stack_elm *stack, int len)
 {
 	uint16_t	i;
@@ -69,6 +89,7 @@ static int	pre_sort_stack(t_stack_elm *stack, int len)
 		}
 	}
 	set_stack_index(stack, new_stack, len);
+	keep_in_stack(stack, len);
 	free(new_stack);
 	return (1);
 }
