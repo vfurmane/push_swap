@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/25 16:42:45 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/06/28 14:49:43 by vfurmane         ###   ########.fr       */
+/*   Created: 2021/06/28 14:33:20 by vfurmane          #+#    #+#             */
+/*   Updated: 2021/06/28 14:41:17 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef TOOLS_H
+# define TOOLS_H
 
-# include <limits.h>
 # include <stdbool.h>
 # include <stdint.h>
-# include <stdlib.h>
-# include "tools.h"
-# include "utils.h"
+# include <stdio.h>
 
-t_stack_elm	*parse_arguments(int len, char **args);
+typedef struct s_stack_elm
+{
+	int32_t		value;
+	uint16_t	index;
+	bool		keep_in_stack;
+}				t_stack_elm;
+
+void	print_stack(t_stack_elm *stack, int len);
 
 #endif

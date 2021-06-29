@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/25 16:42:45 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/06/28 14:49:43 by vfurmane         ###   ########.fr       */
+/*   Created: 2021/06/28 15:08:02 by vfurmane          #+#    #+#             */
+/*   Updated: 2021/06/28 15:08:18 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "utils.h"
 
-# include <limits.h>
-# include <stdbool.h>
-# include <stdint.h>
-# include <stdlib.h>
-# include "tools.h"
-# include "utils.h"
+void	*ft_memmove(void *dest, const void *src, size_t len)
+{
+	int	i;
 
-t_stack_elm	*parse_arguments(int len, char **args);
-
-#endif
+	if (dest > src)
+	{
+		i = (int)len - 1;
+		while (i >= 0)
+		{
+			((char *)dest)[i] = ((char *)src)[i];
+			i--;
+		}
+	}
+	else
+	{
+		i = 0;
+		while (i < (int)len)
+		{
+			((char *)dest)[i] = ((char *)src)[i];
+			i++;
+		}
+	}
+	return (dest);
+}

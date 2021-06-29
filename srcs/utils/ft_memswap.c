@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_memswap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/25 16:42:45 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/06/28 14:49:43 by vfurmane         ###   ########.fr       */
+/*   Created: 2021/06/28 14:28:22 by vfurmane          #+#    #+#             */
+/*   Updated: 2021/06/28 15:07:14 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "utils.h"
 
-# include <limits.h>
-# include <stdbool.h>
-# include <stdint.h>
-# include <stdlib.h>
-# include "tools.h"
-# include "utils.h"
+void	ft_memswap(void *ptr1, void *ptr2, size_t len)
+{
+	void	*tmp;
 
-t_stack_elm	*parse_arguments(int len, char **args);
-
-#endif
+	tmp = malloc(len);
+	if (tmp == NULL)
+		return ;
+	ft_memmove(tmp, ptr1, len);
+	ft_memmove(ptr1, ptr2, len);
+	ft_memmove(ptr2, tmp, len);
+	free(tmp);
+}

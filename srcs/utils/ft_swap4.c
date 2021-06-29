@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_swap4.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/25 16:42:45 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/06/28 14:49:43 by vfurmane         ###   ########.fr       */
+/*   Created: 2021/06/28 19:47:51 by vfurmane          #+#    #+#             */
+/*   Updated: 2021/06/28 19:49:01 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "utils.h"
 
-# include <limits.h>
-# include <stdbool.h>
-# include <stdint.h>
-# include <stdlib.h>
-# include "tools.h"
-# include "utils.h"
+void	ft_swap4(int32_t *nbr1, int32_t *nbr2)
+{
+	int32_t	tmp;
 
-t_stack_elm	*parse_arguments(int len, char **args);
-
-#endif
+	tmp = *nbr1;
+	*nbr1 = *nbr2;
+	*nbr2 = tmp;
+}
