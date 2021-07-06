@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 16:42:45 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/07/05 10:58:07 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/07/06 16:10:58 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_stack_elm
 	bool				keep_in_stack;
 }						t_stack_elm;
 
+bool		is_stack_asc_sorted(t_stack_elm *stack);
 t_stack_elm	*parse_arguments(int len, char **args);
 
 t_stack_elm	*ft_lstnew_stack_elm(void);

@@ -6,13 +6,13 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 23:05:31 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/07/06 10:10:08 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/07/06 16:10:47 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static bool	is_stack_asc_sorted(t_stack_elm *stack)
+bool	is_stack_asc_sorted(t_stack_elm *stack)
 {
 	int32_t		last_nbr;
 
@@ -90,7 +90,6 @@ static int	pre_sort_stack(t_stack_elm *stack)
 	new_stack = initial_stack;
 	set_stack_index(stack, new_stack);
 	keep_in_stack(stack);
-	print_stack(stack);
 	free_stack(new_stack);
 	return (1);
 }

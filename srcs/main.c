@@ -6,11 +6,24 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 16:41:58 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/07/06 10:44:51 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/07/06 16:29:06 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	perform_pa(t_stack_elm **stack_b, t_stack_elm **stack_a)
+{
+	t_stack_elm	*elm_copy;
+	t_stack_elm	*next_elm;
+
+	write(1, "pa\n", 3);
+	elm_copy = ft_memdup(*stack_b, sizeof (**stack_b));
+	ft_lstadd_front(stack_a, elm_copy);
+	next_elm = (*stack_b)->next;
+	free(*stack_b);
+	*stack_b = next_elm;
+}
 
 void	perform_pb(t_stack_elm **stack_a, t_stack_elm **stack_b)
 {
@@ -42,7 +55,6 @@ void	sort_stack(t_stack_elm *stack_a)
 	t_stack_elm	*stack_b;
 
 	stack_b = NULL;
-	print_stack(stack_a);
 	first_number = stack_a->value;
 	while (1)
 	{
@@ -53,8 +65,16 @@ void	sort_stack(t_stack_elm *stack_a)
 		if (stack_a->value == first_number)
 			break ;
 	}
-	print_stack(stack_a);
-	print_stack(stack_b);
+	while (stack_b != NULL)
+	{
+		while (stack_a->index < stack_b->index)
+			perform_ra(&stack_a); // perform_rra
+		perform_pa(&stack_b, &stack_a);
+	}
+	free_stack(stack_b);
+	while (is_stack_asc_sorted(stack_a) == false)
+		perform_ra(&stack_a); // perform_rra
+	free_stack(stack_a);
 }
 
 int	main(int argc, char **argv)
@@ -67,6 +87,5 @@ int	main(int argc, char **argv)
 	if (stack_a == NULL)
 		return (1);
 	sort_stack(stack_a);
-	free_stack(stack_a);
 	return (0);
 }
