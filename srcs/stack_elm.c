@@ -1,24 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdup.c                                        :+:      :+:    :+:   */
+/*   stack_elm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/29 10:54:08 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/07/04 21:03:06 by vfurmane         ###   ########.fr       */
+/*   Created: 2021/07/03 06:02:18 by vfurmane          #+#    #+#             */
+/*   Updated: 2021/07/05 09:31:44 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "push_swap.h"
 
-void	*ft_memdup(const void *ptr, size_t len)
+t_stack_elm	*ft_lstnew_stack_elm(void)
 {
-	char	*new_ptr;
+	t_stack_elm	*elm;
 
-	new_ptr = malloc(len);
-	if (new_ptr == NULL)
-		return (NULL);
-	new_ptr = ft_memmove(new_ptr, ptr, len);
-	return (new_ptr);
+	elm = malloc(sizeof (*elm));
+	if (elm == NULL)
+		return (elm);
+	elm->next = NULL;
+	return (elm);
+}
+
+void	free_stack(t_stack_elm *stack)
+{
+	t_stack_elm	*initial_stack;
+	t_stack_elm	*next_elm;
+
+	initial_stack = stack;
+	while (stack != NULL)
+	{
+		next_elm = stack->next;
+		free(stack);
+		stack = next_elm;
+	}
 }

@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdup.c                                        :+:      :+:    :+:   */
+/*   ft_lstcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/29 10:54:08 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/07/04 21:03:06 by vfurmane         ###   ########.fr       */
+/*   Created: 2021/07/04 19:13:12 by vfurmane          #+#    #+#             */
+/*   Updated: 2021/07/04 21:05:34 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	*ft_memdup(const void *ptr, size_t len)
+void	*ft_lstcpy(void *lst, size_t elm_len)
 {
-	char	*new_ptr;
+	void	*new_lst;
+	void	*initial_lst;
+	t_next	*prev_elm;
 
-	new_ptr = malloc(len);
-	if (new_ptr == NULL)
-		return (NULL);
-	new_ptr = ft_memmove(new_ptr, ptr, len);
-	return (new_ptr);
+	new_lst = NULL;
+	initial_lst = NULL;
+	prev_elm = NULL;
+	while (lst != NULL)
+	{
+		new_lst = ft_memdup(lst, elm_len);
+		if (prev_elm == NULL)
+			initial_lst = new_lst;
+		else
+			prev_elm->next = new_lst;
+		prev_elm = new_lst;
+		lst = ((t_next*)lst)->next;
+		
+	}
+	return (initial_lst);
 }

@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdup.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/29 10:54:08 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/07/04 21:03:06 by vfurmane         ###   ########.fr       */
+/*   Created: 2021/07/03 15:00:25 by vfurmane          #+#    #+#             */
+/*   Updated: 2021/07/06 10:19:46 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	*ft_memdup(const void *ptr, size_t len)
+void	ft_lstadd_front(void *lst, void *new)
 {
-	char	*new_ptr;
-
-	new_ptr = malloc(len);
-	if (new_ptr == NULL)
-		return (NULL);
-	new_ptr = ft_memmove(new_ptr, ptr, len);
-	return (new_ptr);
+	((t_next*)new)->next = *(t_next**)lst;
+	*(t_next**)lst = new;
 }
