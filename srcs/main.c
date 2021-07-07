@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 16:41:58 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/07/06 16:29:06 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/07/07 16:11:38 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	perform_ra(t_stack_elm **stack_a)
 
 void	sort_stack(t_stack_elm *stack_a)
 {
+	uint16_t	i;
 	int32_t		first_number;
 	t_stack_elm	*stack_b;
 
@@ -65,8 +66,12 @@ void	sort_stack(t_stack_elm *stack_a)
 		if (stack_a->value == first_number)
 			break ;
 	}
+	i = 0;
 	while (stack_b != NULL)
 	{
+		// perform rr
+		while (is_stack_asc_sorted(stack_a) == false)
+			perform_ra(&stack_a); // perform_rra
 		while (stack_a->index < stack_b->index)
 			perform_ra(&stack_a); // perform_rra
 		perform_pa(&stack_b, &stack_a);
@@ -84,6 +89,11 @@ int	main(int argc, char **argv)
 	if (argc <= 1)
 		return (0);
 	stack_a = parse_arguments(argc - 1, &argv[1]);
+	if (is_stack_asc_sorted(stack_a))
+	{
+		free_stack(stack_a);
+		return (0);
+	}
 	if (stack_a == NULL)
 		return (1);
 	sort_stack(stack_a);
