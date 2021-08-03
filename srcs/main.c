@@ -58,9 +58,50 @@ void	perform_rra(t_stack_elm **stack_a)
 	elm = ft_lstlast(*stack_a);
 	ft_lstadd_front(stack_a, elm);
 	stack_cpy = *stack_a;
-	while (stack_cpy->next != elm)
+	while (stack_cpy && stack_cpy->next != elm)
 		stack_cpy = stack_cpy->next;
 	stack_cpy->next = NULL;
+}
+
+void	simple_asc_sort(t_stack_elm **stack)
+{
+	t_stack_elm	*save_stack;
+	uint16_t	price;
+	int32_t		last_number;
+	uint16_t	i;
+
+	save_stack = *stack;
+	price = 0;
+	last_number = (*stack)->value;
+	i = 0;
+	while (*stack != NULL && (*stack)->value >= last_number)
+	{
+		*stack = (*stack)->next;
+		i++;
+	}
+	price = i;
+	i = 0;
+	while (*stack != NULL)
+	{
+		*stack = (*stack)->next;
+		i++;
+	}
+	*stack = save_stack;
+	if (price < i)
+	{
+		i = 0;
+		printf("%d\n", i);
+		fflush(stdout);
+		while (i++ < price)
+			perform_ra(stack);
+	}
+	else
+	{
+		price = i;
+		i = 0;
+		while (i++ < price)
+			perform_rra(stack);
+	}
 }
 
 void	sort_stack(t_stack_elm *stack_a)
@@ -91,8 +132,8 @@ void	sort_stack(t_stack_elm *stack_a)
 		perform_pa(&stack_b, &stack_a);
 	}
 	free_stack(stack_b);
-	while (is_stack_asc_sorted(stack_a) == false)
-		perform_ra(&stack_a); // perform_rra
+	if (!is_stack_asc_sorted(stack_a))
+		simple_asc_sort(&stack_a);
 	free_stack(stack_a);
 }
 
