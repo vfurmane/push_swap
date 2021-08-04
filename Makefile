@@ -6,13 +6,13 @@
 #    By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/14 13:23:55 by vfurmane          #+#    #+#              #
-#    Updated: 2021/07/04 21:02:28 by vfurmane         ###   ########.fr        #
+#    Updated: 2021/08/04 15:04:54 by vfurmane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= push_swap
 SRCS		= $(addprefix srcs/, main.c parse_arguments.c stack_elm.c \
-			  $(addprefix utils/, ft_atoi.c ft_lstadd_back.c ft_lstadd_front.c ft_lstcpy.c ft_lstlast.c ft_memdup.c ft_memmove.c ft_swap4.c) \
+			  $(addprefix utils/, ft_atoi.c ft_lstadd_back.c ft_lstadd_front.c ft_lstcpy.c ft_lstlast.c ft_lstsize.c ft_memdup.c ft_memmove.c ft_swap4.c) \
 			  $(addprefix tools/, print_stack.c)) # ===== DELETE ===== #
 OBJS		= $(SRCS:.c=.o)
 INCL		= $(addprefix -I , includes)

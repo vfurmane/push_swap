@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 16:41:58 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/07/08 11:06:41 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/08/04 15:13:23 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,39 @@ void	perform_rra(t_stack_elm **stack_a)
 	while (stack_cpy && stack_cpy->next != elm)
 		stack_cpy = stack_cpy->next;
 	stack_cpy->next = NULL;
+}
+
+void	rotate_stack_for_number(t_stack_elm **stack, int32_t nbr)
+{
+	t_stack_elm	*save_stack;
+	uint16_t	price;
+	int32_t		last_number;
+	uint16_t	i;
+
+	save_stack = *stack;
+	price = 0;
+	last_number = ((t_stack_elm*)ft_lstlast(*stack))->value;
+	i = 0;
+	while (*stack != NULL && (nbr < last_number && nbr > (*stack)->next->value))
+	{
+		last_number = (*stack)->value;
+		*stack = (*stack)->next;
+		i++;
+	}
+	*stack = save_stack;
+	if (i < ft_lstsize(*stack) / 2)
+	{
+		i = 0;
+		while ((((t_stack_elm*)ft_lstlast(*stack))->value > nbr && ((t_stack_elm*)ft_lstlast(*stack))->value < (*stack)->value) || (*stack)->value < nbr)
+			perform_ra(stack);
+	}
+	else
+	{
+		price = i;
+		i = 0;
+		while ((((t_stack_elm*)ft_lstlast(stack))->value > nbr && ((t_stack_elm*)ft_lstlast(stack))->value < (*stack)->value) || (*stack)->value < nbr)
+			perform_rra(stack);
+	}
 }
 
 void	simple_asc_sort(t_stack_elm **stack)
@@ -122,8 +155,8 @@ void	sort_stack(t_stack_elm *stack_a)
 	i = 0;
 	while (stack_b != NULL)
 	{
-		while ((((t_stack_elm*)ft_lstlast(stack_a))->value > stack_b->value && ((t_stack_elm*)ft_lstlast(stack_a))->value < stack_a->value) || stack_a->value < stack_b->value)
-			perform_rra(&stack_a); // perform_rra
+		if ((((t_stack_elm*)ft_lstlast(stack_a))->value > stack_b->value && ((t_stack_elm*)ft_lstlast(stack_a))->value < stack_a->value) || stack_a->value < stack_b->value)
+			rotate_stack_for_number(&stack_a, stack_b->value);
 		perform_pa(&stack_b, &stack_a);
 	}
 	free_stack(stack_b);
