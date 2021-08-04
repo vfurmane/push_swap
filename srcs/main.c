@@ -90,8 +90,6 @@ void	simple_asc_sort(t_stack_elm **stack)
 	if (price < i)
 	{
 		i = 0;
-		printf("%d\n", i);
-		fflush(stdout);
 		while (i++ < price)
 			perform_ra(stack);
 	}
@@ -124,11 +122,8 @@ void	sort_stack(t_stack_elm *stack_a)
 	i = 0;
 	while (stack_b != NULL)
 	{
-		// perform rr
-		while (is_stack_asc_sorted(stack_a) == false)
+		while ((((t_stack_elm*)ft_lstlast(stack_a))->value > stack_b->value && ((t_stack_elm*)ft_lstlast(stack_a))->value < stack_a->value) || stack_a->value < stack_b->value)
 			perform_rra(&stack_a); // perform_rra
-		while (stack_a->index < stack_b->index)
-			perform_ra(&stack_a); // perform_rra
 		perform_pa(&stack_b, &stack_a);
 	}
 	free_stack(stack_b);
