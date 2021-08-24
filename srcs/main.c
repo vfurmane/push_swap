@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 16:41:58 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/08/04 15:13:23 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/08/24 10:50:10 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,17 @@ void	simple_asc_sort(t_stack_elm **stack)
 	}
 }
 
+bool	need_to_push_b(t_stack_elm *stack_a)
+{
+	while (stack_a)
+	{
+		if (stack_a->keep_in_stack == false)
+			return (1);
+		stack_a = stack_a->next;
+	}
+	return (0);
+}
+
 void	sort_stack(t_stack_elm *stack_a)
 {
 	uint16_t	i;
@@ -143,7 +154,7 @@ void	sort_stack(t_stack_elm *stack_a)
 
 	stack_b = NULL;
 	first_number = stack_a->value;
-	while (1)
+	while (need_to_push_b(stack_a) && !is_stack_asc_sorted(stack_a))
 	{
 		if (stack_a->keep_in_stack == false)
 			perform_pb(&stack_a, &stack_b);
