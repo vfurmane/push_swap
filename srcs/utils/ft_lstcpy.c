@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 19:13:12 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/07/04 21:05:34 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/08/30 10:56:09 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ void	*ft_lstcpy(void *lst, size_t elm_len)
 		else
 			prev_elm->next = new_lst;
 		prev_elm = new_lst;
-		lst = ((t_next*)lst)->next;
-		
+		lst = ((t_next *)lst)->next;
 	}
 	return (initial_lst);
 }
