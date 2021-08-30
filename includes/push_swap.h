@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 16:42:45 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/08/30 10:49:03 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/08/30 13:43:35 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ void		perform_pb(t_stack_elm **stack_a, t_stack_elm **stack_b);
 void		perform_ra(t_stack_elm **stack_a);
 void		perform_rra(t_stack_elm **stack_a);
 void		perform_rb(t_stack_elm **stack_b);
+void		perform_rrb(t_stack_elm **stack_b);
+void		perform_rr(t_stack_elm **stack_a, t_stack_elm **stack_b);
+void		perform_rrr(t_stack_elm **stack_a, t_stack_elm **stack_b);
+
+void		perform_sa(t_stack_elm **stack_a);
 
 t_stack_elm	*ft_lstnew_stack_elm(void);
 void		free_stack(t_stack_elm *stack);

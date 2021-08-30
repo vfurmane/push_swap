@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 16:41:58 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/08/30 10:55:22 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/08/30 17:24:34 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ bool	need_to_push_b(t_stack_elm *stack_a)
 int32_t	least_operations_move(t_stack_elm *stack_a, t_stack_elm *stack_b)
 {
 	uint16_t	base_move;
-	uint16_t	stack_a_len;
 	uint16_t	stack_b_len;
 	uint16_t	price;
 	uint16_t	best_price;
@@ -113,11 +112,9 @@ int32_t	least_operations_move(t_stack_elm *stack_a, t_stack_elm *stack_b)
 	best_price = -1;
 	base_move = 0;
 	stack_a_copy = stack_a;
-	stack_a_len = ft_lstsize(stack_a);
 	stack_b_len = ft_lstsize(stack_b);
 	while (stack_b != NULL)
 	{
-		stack_a = stack_a_copy;
 		price = base_move;
 		while ((((t_stack_elm *)ft_lstlast(stack_a))->index > stack_b->index
 				&& ((t_stack_elm *)ft_lstlast(stack_a))->index < stack_a->index)
@@ -126,29 +123,83 @@ int32_t	least_operations_move(t_stack_elm *stack_a, t_stack_elm *stack_b)
 			stack_a = stack_a->next;
 			price++;
 		}
+		if (base_move * 2 >= stack_b_len)
+			price = price - base_move + stack_b_len - base_move;
 		if (price < best_price)
 		{
 			best_price = price;
 			best_elm = stack_b;
 		}
 		base_move++;
+		stack_a = stack_a_copy;
 		stack_b = stack_b->next;
 	}
 	return (best_elm->index);
 }
 
+bool	should_rotate(t_stack_elm *stack, uint16_t target_index)
+{
+	uint16_t	price;
+	uint16_t	len;
+
+	price = 0;
+	while (stack->index != target_index)
+	{
+		stack = stack->next;
+		price++;
+	}
+	len = price + 1;
+	while (stack != NULL)
+	{
+		stack = stack->next;
+		len++;
+	}
+	return (price * 2 < len);
+}
+
 void	align_with_target_index(t_stack_elm **stack_a, t_stack_elm **stack_b,
 	uint16_t target_index)
 {
+	t_stack_elm	*stack_a_copy;
+	uint16_t	stack_a_target_index;
+	bool		should_rotate_a;
+	bool		should_rotate_b;
+
+	stack_a_copy = *stack_a;
 	while ((((t_stack_elm *)ft_lstlast(*stack_a))->index > target_index
 			&& ((t_stack_elm *)ft_lstlast(*stack_a))->index < (*stack_a)->index)
 		|| (*stack_a)->index < target_index)
+		*stack_a = (*stack_a)->next;
+	stack_a_target_index = (*stack_a)->index;
+	*stack_a = stack_a_copy;
+	should_rotate_a = should_rotate(*stack_a, stack_a_target_index);
+	should_rotate_b = should_rotate(*stack_b, target_index);
+	if (should_rotate_a)
 	{
-		perform_ra(stack_a);
+		while ((*stack_a)->index != stack_a_target_index)
+		{
+			if ((*stack_b)->index != target_index && should_rotate_b)
+				perform_rr(stack_a, stack_b);
+			else
+				perform_ra(stack_a);
+		}
+	}
+	else
+	{
+		while ((*stack_a)->index != stack_a_target_index)
+		{
+			if ((*stack_b)->index != target_index && should_rotate_b)
+				perform_rrr(stack_a, stack_b);
+			else
+				perform_rra(stack_a);
+		}
 	}
 	while ((*stack_b)->index != target_index)
 	{
-		perform_rb(stack_b);
+		if (should_rotate_b)
+			perform_rb(stack_b);
+		else
+			perform_rrb(stack_b);
 	}
 }
 
