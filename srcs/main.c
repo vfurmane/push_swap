@@ -6,84 +6,34 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 16:41:58 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/08/31 12:06:47 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/08/31 22:02:44 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	rotate_stack_for_number(t_stack_elm **stack, int32_t nbr)
-{
-	t_stack_elm	*save_stack;
-	uint16_t	price;
-	int32_t		last_number;
-	uint16_t	i;
-
-	save_stack = *stack;
-	price = 0;
-	last_number = ((t_stack_elm *)ft_lstlast(*stack))->value;
-	i = 0;
-	while (*stack != NULL && (nbr < last_number && nbr > (*stack)->next->value))
-	{
-		last_number = (*stack)->value;
-		*stack = (*stack)->next;
-		i++;
-	}
-	*stack = save_stack;
-	if (i < ft_lstsize(*stack) / 2)
-	{
-		i = 0;
-		while ((((t_stack_elm *)ft_lstlast(*stack))->value > nbr
-				&& ((t_stack_elm *)ft_lstlast(*stack))->value < (*stack)->value)
-			|| (*stack)->value < nbr)
-			perform_ra(stack);
-	}
-	else
-	{
-		price = i;
-		i = 0;
-		while ((((t_stack_elm *)ft_lstlast(stack))->value > nbr
-				&& ((t_stack_elm *)ft_lstlast(stack))->value < (*stack)->value)
-			|| (*stack)->value < nbr)
-			perform_rra(stack);
-	}
-}
 
 void	simple_asc_sort(t_stack_elm **stack)
 {
 	t_stack_elm	*save_stack;
 	uint16_t	price;
 	int32_t		last_number;
-	uint16_t	i;
 
 	save_stack = *stack;
 	price = 0;
 	last_number = (*stack)->value;
-	i = 0;
 	while (*stack != NULL && (*stack)->value >= last_number)
 	{
 		*stack = (*stack)->next;
-		i++;
-	}
-	price = i;
-	i = 0;
-	while (*stack != NULL)
-	{
-		*stack = (*stack)->next;
-		i++;
+		price++;
 	}
 	*stack = save_stack;
-	if (price < i)
-	{
-		i = 0;
-		while (i++ < price)
+	if (price < ft_lstsize(stack) - price - 1)
+		while (price-- > 0)
 			perform_ra(stack);
-	}
 	else
 	{
-		price = i;
-		i = 0;
-		while (i++ < price)
+		price = ft_lstsize(stack) - price - 1;
+		while (price-- > 0)
 			perform_rra(stack);
 	}
 }
@@ -102,7 +52,6 @@ bool	need_to_push_b(t_stack_elm *stack_a)
 int32_t	least_operations_move(t_stack_elm *stack_a, t_stack_elm *stack_b)
 {
 	uint16_t	base_move;
-	uint16_t	stack_b_len;
 	uint16_t	price;
 	uint16_t	best_price;
 	t_stack_elm	*best_elm;
@@ -112,7 +61,6 @@ int32_t	least_operations_move(t_stack_elm *stack_a, t_stack_elm *stack_b)
 	best_price = -1;
 	base_move = 0;
 	stack_a_copy = stack_a;
-	stack_b_len = ft_lstsize(stack_b);
 	while (stack_b != NULL)
 	{
 		price = base_move;
@@ -123,8 +71,8 @@ int32_t	least_operations_move(t_stack_elm *stack_a, t_stack_elm *stack_b)
 			stack_a = stack_a->next;
 			price++;
 		}
-		if (base_move * 2 >= stack_b_len)
-			price = price - base_move + stack_b_len - base_move;
+		if (base_move * 2 >= ft_lstsize(stack_b) + base_move)
+			price = price - base_move + ft_lstsize(stack_b);
 		if (price < best_price)
 		{
 			best_price = price;
