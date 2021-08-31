@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 16:41:58 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/08/30 17:24:34 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/08/31 12:06:47 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,11 @@ int	main(int argc, char **argv)
 	if (argc <= 1)
 		return (0);
 	stack_a = parse_arguments(argc - 1, &argv[1]);
+	if (stack_a == NULL)
+	{
+		write(2, "Error\n", 6);
+		return (1);
+	}
 	if (is_stack_asc_sorted(stack_a))
 	{
 		free_stack(stack_a);

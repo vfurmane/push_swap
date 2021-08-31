@@ -6,11 +6,27 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 23:05:31 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/08/30 10:51:20 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/08/31 13:44:22 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+bool	check_arg(char *arg, t_stack_elm *stack)
+{
+	long	nbr;
+
+	nbr = ft_atol(arg);
+	if (nbr < -2147483648 || nbr > 2147483647)
+		return (false);
+	while (stack)
+	{
+		if (stack->value == nbr)
+			return (false);
+		stack = stack->next;
+	}
+	return (true);
+}
 
 bool	is_stack_asc_sorted(t_stack_elm *stack)
 {
@@ -104,6 +120,11 @@ t_stack_elm	*parse_arguments(int len, char **args)
 	i = 0;
 	while (i < len)
 	{
+		if (check_arg(args[i], stack) == false)
+	{
+		free_stack(stack);
+		return (NULL);
+	}
 		elm = ft_lstnew_stack_elm();
 		ft_lstadd_back(&stack, elm);
 		elm->value = ft_atoi(args[i]);
