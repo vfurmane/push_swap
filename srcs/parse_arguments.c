@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 23:05:31 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/08/31 13:44:22 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/08/31 13:57:08 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 bool	check_arg(char *arg, t_stack_elm *stack)
 {
+	int		i;
 	long	nbr;
 
+	i = 0;
+	if (!ft_isdigit(arg[i]) && arg[i] != '-')
+		return (false);
+	while (arg[++i])
+		if (!ft_isdigit(arg[i]))
+			return (false);
 	nbr = ft_atol(arg);
 	if (nbr < -2147483648 || nbr > 2147483647)
 		return (false);

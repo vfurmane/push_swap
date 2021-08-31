@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 23:02:44 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/08/31 13:43:05 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/08/31 13:48:44 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_next
 
 int		ft_atoi(const char *str);
 long	ft_atol(const char *str);
+int		ft_isdigit(int chr);
 char	*ft_itoa(int nbr);
 void	ft_lstadd_back(void *lst, void *new);
 void	ft_lstadd_front(void *lst, void *new);
