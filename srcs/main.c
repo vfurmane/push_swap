@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 16:41:58 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/09/01 10:58:50 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/09/01 14:57:28 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ int32_t	least_operations_move(t_stack_elm *stack_a, t_stack_elm *stack_b,
 	return (best_elm->index);
 }
 
+void	small_operations(t_stack_elm **stack_a, t_stack_elm **stack_b)
+{
+	if ((*stack_a)->keep_in_stack == false)
+		perform_pb(stack_a, stack_b);
+	else
+		perform_ra(stack_a);
+}
+
 void	sort_stack(t_stack_elm *stack_a)
 {
 	int32_t		first_number;
@@ -89,10 +97,7 @@ void	sort_stack(t_stack_elm *stack_a)
 	first_number = stack_a->value;
 	while (need_to_push_b(stack_a) && !is_stack_asc_sorted(stack_a))
 	{
-		if (stack_a->keep_in_stack == false)
-			perform_pb(&stack_a, &stack_b);
-		else
-			perform_ra(&stack_a);
+		small_operations(&stack_a, &stack_b);
 		if (stack_a->value == first_number)
 			break ;
 	}
@@ -108,6 +113,22 @@ void	sort_stack(t_stack_elm *stack_a)
 	free_stack(stack_a);
 }
 
+int	sort_three_numbers(t_stack_elm *stack)
+{
+	while (!is_stack_asc_sorted(stack))
+	{
+		if (stack->index - 1 == stack->next->index
+			|| (stack->index == 0 && stack->next->index == 2))
+			perform_sa(&stack);
+		else if (stack->index == 2 && stack->next->index == 0)
+			perform_ra(&stack);
+		else if (stack->index == 1 && stack->next->index == 2)
+			perform_rra(&stack);
+	}
+	free_stack(stack);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack_elm	*stack_a;
@@ -115,6 +136,8 @@ int	main(int argc, char **argv)
 	if (argc <= 1)
 		return (0);
 	stack_a = parse_arguments(argc - 1, &argv[1]);
+	if (argc == 4)
+		return (sort_three_numbers(stack_a));
 	if (stack_a == NULL)
 	{
 		write(2, "Error\n", 6);
