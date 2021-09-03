@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 16:42:45 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/09/03 13:46:21 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/09/03 14:50:13 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include "tools.h"
 # include "utils.h"
 
 typedef struct s_stack_elm
