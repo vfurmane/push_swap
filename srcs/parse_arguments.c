@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 23:05:31 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/08/31 14:08:09 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/09/02 15:18:13 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	keep_in_stack(t_stack_elm *stack)
 	}
 }
 
-static int	pre_sort_stack(t_stack_elm *stack)
+int	pre_sort_stack(t_stack_elm *stack)
 {
 	t_stack_elm	*initial_stack;
 	t_stack_elm	*new_stack;

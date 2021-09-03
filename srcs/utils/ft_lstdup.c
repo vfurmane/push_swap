@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.h                                            :+:      :+:    :+:   */
+/*   ft_lstdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/28 14:33:20 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/07/07 09:35:03 by vfurmane         ###   ########.fr       */
+/*   Created: 2021/09/02 11:21:50 by vfurmane          #+#    #+#             */
+/*   Updated: 2021/09/02 11:25:49 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOOLS_H
-# define TOOLS_H
+#include "utils.h"
 
-# include <stdbool.h>
-# include <stdint.h>
-# include <stdio.h>
-# include "push_swap.h"
+void	*ft_lstdup(void *lst)
+{
+	void	*new_lst;
 
-typedef struct s_stack_elm t_stack_elm;
-
-void	print_stack(t_stack_elm *stack);
-void	print_stacks(t_stack_elm *stack_a, t_stack_elm *stack_b);
-
-#endif
+	new_lst = NULL;
+	while (lst != NULL)
+	{
+		ft_lstadd_back(new_lst, lst);
+		lst = ((t_next*)lst)->next;
+	}
+	return (new_lst);
+}

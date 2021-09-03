@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 16:42:45 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/09/01 11:07:18 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/09/02 18:22:56 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_stack_elm
 	struct s_stack_elm	*next;
 	int32_t				value;
 	uint16_t			index;
+	uint16_t			index_for_five;
 	bool				keep_in_stack;
 }						t_stack_elm;
 
@@ -36,13 +37,14 @@ typedef struct s_var
 	bool		should_rotate_b;
 }						t_var;
 
-bool		is_not_aligned_to_push(t_stack_elm *stack, uint16_t target_index);
+bool		is_aligned_to_push(t_stack_elm *stack, uint16_t target_index, t_stack_elm *last_elm);
 void		align_with_target_index(t_stack_elm **stack_a,
 				t_stack_elm **stack_b, uint16_t target_index);
 
 bool		check_arg(char *arg, t_stack_elm *stack);
 
 bool		is_stack_asc_sorted(t_stack_elm *stack);
+int			pre_sort_stack(t_stack_elm *stack);
 t_stack_elm	*parse_arguments(int len, char **args);
 
 void		perform_pa(t_stack_elm **stack_b, t_stack_elm **stack_a);

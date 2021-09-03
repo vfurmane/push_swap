@@ -6,17 +6,20 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 10:52:33 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/09/01 11:06:32 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/09/03 09:33:25 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	is_not_aligned_to_push(t_stack_elm *stack, uint16_t target_index)
+bool	is_aligned_to_push(t_stack_elm *stack, uint16_t target_index, t_stack_elm *last_elm)
 {
-	return ((((t_stack_elm *)ft_lstlast(stack))->index > target_index
-			&& ((t_stack_elm *)ft_lstlast(stack))->index < stack->index)
-		|| stack->index < target_index);
+//	return ((last_elm->index > target_index
+//			&& last_elm->index < stack->index)
+//		|| (stack->index < target_index));
+
+	return ((stack->index > target_index && (last_elm->index < target_index || stack->index < last_elm->index))
+		|| (stack->index < target_index && stack->index < last_elm->index && last_elm->index < target_index));
 }
 
 bool	should_rotate(t_stack_elm *stack, uint16_t target_index)
@@ -68,11 +71,19 @@ void	align_with_target_index(t_stack_elm **stack_a, t_stack_elm **stack_b,
 	uint16_t target_index)
 {
 	t_var		var;
+	t_stack_elm	*last_elm;
 	t_stack_elm	*stack_a_copy;
 
+	last_elm = ft_lstlast(stack_a);
 	stack_a_copy = *stack_a;
-	while (is_not_aligned_to_push(*stack_a, target_index))
+	while (!is_aligned_to_push(*stack_a, target_index, last_elm))
+	{
+		if (last_elm->next == NULL)
+			last_elm = *stack_a;
+		else
+			last_elm = last_elm->next;
 		*stack_a = (*stack_a)->next;
+	}
 	var.stack_a_target_index = (*stack_a)->index;
 	*stack_a = stack_a_copy;
 	var.should_rotate_a = should_rotate(*stack_a, var.stack_a_target_index);

@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 16:41:58 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/09/01 14:57:28 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/09/03 09:35:44 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	simple_asc_sort(t_stack_elm **stack)
 	while (*stack != NULL && (*stack)->value >= last_number)
 	{
 		*stack = (*stack)->next;
-		price++;
-	}
+		price++; }
 	*stack = save_stack;
 	if (price < ft_lstsize(stack) - price - 1)
 		while (price-- > 0)
@@ -54,15 +53,21 @@ int32_t	least_operations_move(t_stack_elm *stack_a, t_stack_elm *stack_b,
 {
 	uint16_t	price;
 	t_stack_elm	*best_elm;
+	t_stack_elm	*last_elm;
 	t_stack_elm	*stack_a_copy;
 
 	best_elm = NULL;
 	stack_a_copy = stack_a;
 	while (stack_b != NULL)
 	{
+		last_elm = ft_lstlast(stack_a);
 		price = base_move;
-		while (is_not_aligned_to_push(stack_a, stack_b->index))
+		while (!is_aligned_to_push(stack_a, stack_b->index, last_elm))
 		{
+			if (last_elm->next == NULL)
+				last_elm = stack_a;
+			else
+				last_elm = last_elm->next;
 			stack_a = stack_a->next;
 			price++;
 		}
@@ -113,19 +118,68 @@ void	sort_stack(t_stack_elm *stack_a)
 	free_stack(stack_a);
 }
 
-int	sort_three_numbers(t_stack_elm *stack)
+int	sort_three_numbers(t_stack_elm **stack, bool free)
 {
-	while (!is_stack_asc_sorted(stack))
+	while (!is_stack_asc_sorted(*stack))
 	{
-		if (stack->index - 1 == stack->next->index
-			|| (stack->index == 0 && stack->next->index == 2))
-			perform_sa(&stack);
-		else if (stack->index == 2 && stack->next->index == 0)
-			perform_ra(&stack);
-		else if (stack->index == 1 && stack->next->index == 2)
-			perform_rra(&stack);
+		if ((*stack)->index - 1 == (*stack)->next->index
+			|| ((*stack)->index == 0 && (*stack)->next->index == 2))
+			perform_sa(stack);
+		else if ((*stack)->index == 2 && (*stack)->next->index == 0)
+			perform_ra(stack);
+		else if ((*stack)->index == 1 && (*stack)->next->index == 2)
+			perform_rra(stack);
 	}
-	free_stack(stack);
+	if (free)
+		free_stack(*stack);
+	return (0);
+}
+
+static void	save_index(t_stack_elm *stack)
+{
+	while (stack != NULL)
+	{
+		stack->index_for_five = stack->index;
+		stack = stack->next;
+	}
+}
+
+static void	restore_index(t_stack_elm *stack)
+{
+	while (stack != NULL)
+	{
+		stack->index = stack->index_for_five;
+		stack = stack->next;
+	}
+}
+
+int	sort_five_numbers(t_stack_elm *stack_a)
+{
+	int32_t		target_index;
+	t_stack_elm *stack_b;
+
+	if (is_stack_asc_sorted(stack_a))
+	{
+		free_stack(stack_a);
+		return (0);
+	}
+	stack_b = NULL;
+	perform_pb(&stack_a, &stack_b);
+	perform_pb(&stack_a, &stack_b);
+	save_index(stack_a);
+	pre_sort_stack(stack_a);
+	sort_three_numbers(&stack_a, 0);
+	restore_index(stack_a);
+	while (stack_b != NULL)
+	{
+		target_index = least_operations_move(stack_a, stack_b, 0, -1);
+		align_with_target_index(&stack_a, &stack_b, target_index);
+		perform_pa(&stack_b, &stack_a);
+	}
+	if (!is_stack_asc_sorted(stack_a))
+		simple_asc_sort(&stack_a);
+	free_stack(stack_a);
+	free_stack(stack_b);
 	return (0);
 }
 
@@ -136,13 +190,15 @@ int	main(int argc, char **argv)
 	if (argc <= 1)
 		return (0);
 	stack_a = parse_arguments(argc - 1, &argv[1]);
-	if (argc == 4)
-		return (sort_three_numbers(stack_a));
 	if (stack_a == NULL)
 	{
 		write(2, "Error\n", 6);
 		return (1);
 	}
+	if (argc == 4)
+		return (sort_three_numbers(&stack_a, 1));
+	else if (argc == 6)
+		return (sort_five_numbers(stack_a));
 	if (is_stack_asc_sorted(stack_a))
 	{
 		free_stack(stack_a);

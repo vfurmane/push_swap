@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 23:02:44 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/08/31 13:48:44 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/09/02 11:24:52 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*ft_itoa(int nbr);
 void	ft_lstadd_back(void *lst, void *new);
 void	ft_lstadd_front(void *lst, void *new);
 void	*ft_lstcpy(void *lst, size_t elm_len);
+void	*ft_lstdup(void *lst);
 void	*ft_lstlast(void *lst);
 int		ft_lstsize(void *lst);
 void	*ft_memdup(const void *ptr, size_t len);
