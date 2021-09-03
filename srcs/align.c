@@ -6,20 +6,20 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 10:52:33 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/09/03 09:33:25 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/09/03 12:01:46 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	is_aligned_to_push(t_stack_elm *stack, uint16_t target_index, t_stack_elm *last_elm)
+bool	is_aligned_to_push(t_stack_elm *stack, uint16_t target_index,
+	t_stack_elm *last_elm)
 {
-//	return ((last_elm->index > target_index
-//			&& last_elm->index < stack->index)
-//		|| (stack->index < target_index));
-
-	return ((stack->index > target_index && (last_elm->index < target_index || stack->index < last_elm->index))
-		|| (stack->index < target_index && stack->index < last_elm->index && last_elm->index < target_index));
+	return ((stack->index > target_index
+			&& (last_elm->index < target_index
+				|| stack->index < last_elm->index))
+		|| (stack->index < target_index && stack->index < last_elm->index
+			&& last_elm->index < target_index));
 }
 
 bool	should_rotate(t_stack_elm *stack, uint16_t target_index)
@@ -90,10 +90,8 @@ void	align_with_target_index(t_stack_elm **stack_a, t_stack_elm **stack_b,
 	var.should_rotate_b = should_rotate(*stack_b, target_index);
 	align_a_for_target(stack_a, stack_b, target_index, &var);
 	while ((*stack_b)->index != target_index)
-	{
 		if (var.should_rotate_b)
 			perform_rb(stack_b);
-		else
-			perform_rrb(stack_b);
-	}
+	else
+		perform_rrb(stack_b);
 }

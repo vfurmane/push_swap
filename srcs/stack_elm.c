@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 06:02:18 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/07/05 09:31:44 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/09/03 13:42:09 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_stack_elm	*ft_lstnew_stack_elm(void)
 	return (elm);
 }
 
-void	free_stack(t_stack_elm *stack)
+int	free_stack(t_stack_elm *stack)
 {
 	t_stack_elm	*initial_stack;
 	t_stack_elm	*next_elm;
@@ -35,4 +35,5 @@ void	free_stack(t_stack_elm *stack)
 		free(stack);
 		stack = next_elm;
 	}
+	return (0);
 }

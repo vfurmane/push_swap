@@ -6,7 +6,7 @@
 /*   By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 16:42:45 by vfurmane          #+#    #+#             */
-/*   Updated: 2021/09/02 18:22:56 by vfurmane         ###   ########.fr       */
+/*   Updated: 2021/09/03 13:46:21 by vfurmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef struct s_var
 	bool		should_rotate_b;
 }						t_var;
 
-bool		is_aligned_to_push(t_stack_elm *stack, uint16_t target_index, t_stack_elm *last_elm);
+bool		is_aligned_to_push(t_stack_elm *stack, uint16_t target_index,
+				t_stack_elm *last_elm);
 void		align_with_target_index(t_stack_elm **stack_a,
 				t_stack_elm **stack_b, uint16_t target_index);
 
@@ -60,7 +61,16 @@ void		perform_rr(t_stack_elm **stack_a, t_stack_elm **stack_b);
 
 void		perform_sa(t_stack_elm **stack_a);
 
+int			sort_three_numbers(t_stack_elm **stack, bool free);
+int			sort_five_numbers(t_stack_elm *stack_a);
+
+void		simple_asc_sort(t_stack_elm **stack);
+bool		need_to_push_b(t_stack_elm *stack_a);
+int32_t		least_operations_move(t_stack_elm *stack_a, t_stack_elm *stack_b,
+				uint16_t base_move, uint16_t best_price);
+void		small_operations(t_stack_elm **stack_a, t_stack_elm **stack_b);
+
 t_stack_elm	*ft_lstnew_stack_elm(void);
-void		free_stack(t_stack_elm *stack);
+int			free_stack(t_stack_elm *stack);
 
 #endif
