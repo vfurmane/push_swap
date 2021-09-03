@@ -6,7 +6,7 @@
 #    By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/14 13:23:55 by vfurmane          #+#    #+#              #
-#    Updated: 2021/09/03 13:41:21 by vfurmane         ###   ########.fr        #
+#    Updated: 2021/09/03 14:52:34 by vfurmane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,17 +22,12 @@ RM			= rm -f
 %.o:		%.c
 			$(CC) $(CFLAGS) -c $< $(INCL) -o $@
 
-# remove fsanitize
-all:		CFLAGS+= -fsanitize=address -g3
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
 			$(CC) $(CFLAGS) $^ -o $(NAME)
 
 bonus:		all
-
-# remove nosan
-nosan:		$(NAME)
 
 clean:
 			$(RM) $(OBJS)
@@ -42,5 +37,4 @@ fclean:		clean
 
 re:			fclean all
 
-# Remove nosan
-.PHONY:		all bonus nosan clean fclean re
+.PHONY:		all bonus clean fclean re
